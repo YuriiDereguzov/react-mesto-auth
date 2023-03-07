@@ -61,3 +61,11 @@
 @import url(./blocks/popup/__title/_delete/popup__title_delete_card.css);
 
 @import url(./blocks/card/__like/_active/card__like_active.css);
+
+/*new*/
+@import url(./blocks/registration/registration.css);
+@import url(./blocks/registration/__button-save/registration__button-save.css);
+@import url(./blocks/registration/__button/registration__button.css);
+@import url(./blocks/registration/__input/registration__input.css);
+@import url(./blocks/registration/__title/registration__title.css);
+/*new end*/

@@ -1,0 +1,13 @@
+.registration__button {
+    color: #fff;
+    background-color: #000;
+    margin: 15px 0 80px 0;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.2;
+    min-height: 50px;
+    min-width: 100%;
+    padding: 0;
+}
