@@ -6,8 +6,8 @@ function Header() {
     <header className="header">
       <img className="header__logo" src={logo} alt="Место Россия" />
       <div className="header__loged">
-        <p className="heder__email">@mail</p>
-        <button className="header__button">Вход</button> 
+        <p className="heder__email">email@mail.com</p>
+        <button className="header__button">Выйти</button> 
       </div>
     </header>
   );

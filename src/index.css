@@ -12,7 +12,11 @@
 
 /* Структура для элементов*/
 @import url(./blocks/header/__logo/header__logo.css);
-
+/*new*/
+@import url(./blocks/header/__loged/header__loged.css);
+@import url(./blocks/header/__email/header__email.css);
+@import url(./blocks/header/__button/header__button.css);
+/*new end*/
 @import url(./blocks/profile/__avatar/profile__avatar.css);
 @import url(./blocks/profile/__button-add/profile__button-add.css);
 @import url(./blocks/profile/__edit-button/profile__edit-button.css);
