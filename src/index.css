@@ -15,7 +15,7 @@
 /*new*/
 @import url(./blocks/header/__loged/header__loged.css);
 @import url(./blocks/header/__email/header__email.css);
-@import url(./blocks/header/__button/header__button.css);
+@import url(./blocks/header/__link/header__link.css);
 /*new end*/
 @import url(./blocks/profile/__avatar/profile__avatar.css);
 @import url(./blocks/profile/__button-add/profile__button-add.css);
@@ -68,4 +68,6 @@
 @import url(./blocks/registration/__button/registration__button.css);
 @import url(./blocks/registration/__input/registration__input.css);
 @import url(./blocks/registration/__title/registration__title.css);
+@import url(./blocks/registration/__login-btn/registration__login-btn.css);
+@import url(./blocks/registration/__login-link/registration__login-link.css);
 /*new end*/

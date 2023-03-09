@@ -1,4 +1,5 @@
 import React from "react";
+import { Routes, Route } from 'react-router-dom';
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
@@ -8,6 +9,9 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
@@ -19,6 +23,7 @@ function App() {
   });
   const [currentUser, setCurrentUser] = React.useState("");
   const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
 
   React.useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
@@ -103,107 +108,64 @@ function App() {
 
   return (
     <div className="page">
-      <Header />
-      <CurrentUserContext.Provider value={currentUser}>
-        {/* Поддерево, в котором будет доступен контекст */}
-        <Main
-          cards={cards}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={setSelectedCard}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+      <Routes>
+        <Route path="/" 
+          element={
+            <ProtectedRoute 
+              loggedIn={loggedIn} 
+              component={
+                <>
+                  <Header link="/sign-up" email="@mail" buttonText="Выйти" />
+                  <CurrentUserContext.Provider value={currentUser}>
+                    <Main
+                      cards={cards}
+                      onEditProfile={handleEditProfileClick}
+                      onAddPlace={handleAddPlaceClick}
+                      onEditAvatar={handleEditAvatarClick}
+                      onCardClick={setSelectedCard}
+                      onCardLike={handleCardLike}
+                      onCardDelete={handleCardDelete}
+                    />
+                    <Footer />
+                    <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+                    <EditProfilePopup
+                      isOpen={isEditProfilePopupOpen}
+                      onClose={closeAllPopups}
+                      onUpdateUser={handleUpdateUser}
+                    />
+                    <EditAvatarPopup
+                      isOpen={isEditAvatarPopupOpen}
+                      onClose={closeAllPopups}
+                      onUpdateAvatar={handleUpdateAvatar}
+                    />
+                    <AddPlacePopup
+                      isOpen={isAddPlacePopupOpen}
+                      onClose={closeAllPopups}
+                      onAddPlace={handleAddPlaceSubmit}
+                    />
+                  </CurrentUserContext.Provider>
+                </>
+              } 
+            />
+          }
         />
-        <Footer />
-        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          onUpdateUser={handleUpdateUser}
+        <Route path="/sign-up" 
+          element={
+            <>
+              <Header link="/sign-in" buttonText="Регистрация"/>
+              <Login />
+            </>
+          } 
         />
-        <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          onUpdateAvatar={handleUpdateAvatar}
+        <Route path="/sign-in" 
+          element={
+            <>
+              <Header  link="/sign-up" buttonText="Войти"/>
+              <Register />
+            </>
+          }
         />
-        <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          onAddPlace={handleAddPlaceSubmit}
-        />
-      </CurrentUserContext.Provider>
-      {/* <PopupWithForm name="delete_card" title="Вы уверены?" isOpen={is} /> */}
-
-      {/* <section className="popup popup_delete_card">
-        <div className="popup__container popup__container_delete_card">
-          <form
-            name="deleteForm"
-            className="popup__form popup__form_delete_card"
-            // novalidate
-          >
-            <h2 className="popup__title popup__title_delete_card">
-              Вы уверены?
-            </h2>
-            <button
-              type="submit"
-              className="button popup__button-save"
-              aria-label="Подтверждение удаления"
-            >
-              Да
-            </button>
-          </form>
-          <button
-            type="button"
-            className="popup__close popup__close-button"
-            aria-label="Закрыть"
-          ></button>
-        </div>
-      </section> */}
-
-      {/* <form
-        name="registration"
-        // className="popup__form popup__form_delete_card"
-        className="registration"
-      >
-        <h2 className="registration__title">Регистрация</h2>
-        <input
-          type="text"
-          id="@mailr"
-          name="@mail"
-          // className="popup__input popup__input_type_name"
-          className="registration__input"
-          required
-          placeholder="@mail"
-        />
-        <span className="name-user-error popup__input-error"></span>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          // className="popup__input popup__input_type_name"
-          className="registration__input"
-          required
-          placeholder="Password"
-        />
-        <span className="name-user-error popup__input-error"></span>
-        <button
-          type="submit"
-          // className="button popup__button-save"
-          className="registration__button-save"
-          aria-label="Регистрация"
-        >
-          Зарегистрироваться
-        </button>
-        <button
-          type="submit"
-          // className="button popup__button-save"
-          className="registration__button"
-          aria-label="Переход на авторизацию"
-        >
-          Уже зарегестрированны? Войти
-        </button>
-      </form> */}
+      </Routes>
     </div>
   );
 }
