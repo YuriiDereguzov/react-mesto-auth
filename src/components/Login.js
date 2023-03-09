@@ -41,13 +41,13 @@ function Login({ handleLogin }) {
     >
       <h2 className="registration__title">Вход</h2>
       <input
-        type="text"
-        id="@mailr"
-        name="@mail"
+        type="email"
+        id="email"
+        name="email"
         // className="popup__input popup__input_type_name"
         className="registration__input"
         required
-        placeholder="@mail"
+        placeholder="email"
       />
       <span className="name-user-error popup__input-error"></span>
       <input

@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
@@ -12,8 +12,11 @@ import AddPlacePopup from "./AddPlacePopup";
 import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
+import * as Auth from "../utils/Auth";
 
 function App() {
+  const navigate = useNavigate();
+
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -24,6 +27,9 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState("");
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [data, setData] = React.useState({
+    email: "",
+  });
 
   React.useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
@@ -35,6 +41,29 @@ function App() {
         console.log(`Ошибка: ${err}`); // выведем ошибку в консоль
       });
   }, []);
+
+  React.useEffect(() => {
+    tokenCheck();
+  });
+
+  function tokenCheck() {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      Auth.getContent(jwt).then((res) => {
+        setLoggedIn(true);
+        setData({
+          email: res.email,
+        });
+        navigate("/");
+      });
+    }
+  }
+    
+  function handleRegister({ password, email }) {
+    return Auth.register(password, email).then(() => {
+      navigate("/sign-up");
+    });
+  }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
@@ -115,7 +144,7 @@ function App() {
               loggedIn={loggedIn} 
               component={
                 <>
-                  <Header link="/sign-up" email="@mail" buttonText="Выйти" />
+                  <Header link="/sign-up" email={data} buttonText="Выйти" />
                   <CurrentUserContext.Provider value={currentUser}>
                     <Main
                       cards={cards}
@@ -161,9 +190,13 @@ function App() {
           element={
             <>
               <Header  link="/sign-up" buttonText="Войти"/>
-              <Register />
+              <Register handleRegister={handleRegister}/>
             </>
           }
+        />
+        <Route
+        path="*"
+        element={loggedIn ? <Navigate to="/" /> : <Navigate to="/sign-up" />}
         />
       </Routes>
     </div>
