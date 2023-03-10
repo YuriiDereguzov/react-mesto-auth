@@ -27,10 +27,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState("");
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [data, setData] = React.useState({
-    email: "",
-  });
-
+  const [data, setData] = React.useState("");
+  
   React.useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
       .then(([userData, cardList]) => {
@@ -40,20 +38,18 @@ function App() {
       .catch((err) => {
         console.log(`Ошибка: ${err}`); // выведем ошибку в консоль
       });
+      
+      // проверяем наличие токена при загрузке сайта
+      tokenCheck();
   }, []);
-
-  React.useEffect(() => {
-    tokenCheck();
-  });
 
   function tokenCheck() {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       Auth.getContent(jwt).then((res) => {
+        console.log(res)
         setLoggedIn(true);
-        setData({
-          email: res.email,
-        });
+        setData(res.data.email);
         navigate("/");
       });
     }
@@ -61,7 +57,18 @@ function App() {
     
   function handleRegister({ password, email }) {
     return Auth.register(password, email).then(() => {
-      navigate("/sign-up");
+      navigate("/sign-in");
+    });
+  }
+
+  function handleLogin({ password, email }) {
+    return Auth.authorize(password, email).then((data) => {
+      if (data.token) {
+        localStorage.setItem("jwt", data.token);
+        setLoggedIn(true);
+        setData(email);
+        navigate("/");
+      }
     });
   }
 
@@ -138,13 +145,18 @@ function App() {
   return (
     <div className="page">
       <Routes>
-        <Route path="/" 
+        {/* <Route path="/" 
           element={
             <ProtectedRoute 
               loggedIn={loggedIn} 
+              // component={Header}
+              // link="/sign-in"
+              // // email={data}
+              // email="email@email"
+              // buttonText="Выйти"
               component={
                 <>
-                  <Header link="/sign-up" email={data} buttonText="Выйти" />
+                  <Header link="/sign-in" email={data} buttonText="Выйти" />
                   <CurrentUserContext.Provider value={currentUser}>
                     <Main
                       cards={cards}
@@ -177,26 +189,65 @@ function App() {
               } 
             />
           }
-        />
-        <Route path="/sign-up" 
+        /> */}
+        <Route path="/"
           element={
             <>
-              <Header link="/sign-in" buttonText="Регистрация"/>
-              <Login />
-            </>
-          } 
-        />
-        <Route path="/sign-in" 
-          element={
-            <>
-              <Header  link="/sign-up" buttonText="Войти"/>
-              <Register handleRegister={handleRegister}/>
+              <CurrentUserContext.Provider value={currentUser}>
+                <Header link="/sign-in" email={data} buttonText="Выйти" />
+                <ProtectedRoute
+                  loggedIn={loggedIn}
+                  component={Main}
+                  cards={cards}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onEditAvatar={handleEditAvatarClick}
+                  onCardClick={setSelectedCard}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                />
+                <Footer />
+                <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+                <EditProfilePopup
+                  isOpen={isEditProfilePopupOpen}
+                  onClose={closeAllPopups}
+                  onUpdateUser={handleUpdateUser}
+                />
+                <EditAvatarPopup
+                  isOpen={isEditAvatarPopupOpen}
+                  onClose={closeAllPopups}
+                  onUpdateAvatar={handleUpdateAvatar}
+                />
+                <AddPlacePopup
+                  isOpen={isAddPlacePopupOpen}
+                  onClose={closeAllPopups}
+                  onAddPlace={handleAddPlaceSubmit}
+                />
+              </CurrentUserContext.Provider>
             </>
           }
         />
         <Route
-        path="*"
-        element={loggedIn ? <Navigate to="/" /> : <Navigate to="/sign-up" />}
+          path="/sign-in"
+          element={
+            <>
+              <Header link="/sign-up" buttonText="Регистрация" />
+              <Login handleLogin={handleLogin} />
+            </>
+          }
+        />
+        <Route
+          path="/sign-up"
+          element={
+            <>
+              <Header link="/sign-in" buttonText="Войти" />
+              <Register handleRegister={handleRegister} />
+            </>
+          }
+        />
+        <Route
+          path="*"
+          element={loggedIn ? <Navigate to="/" /> : <Navigate to="/sign-in" />}
         />
       </Routes>
     </div>

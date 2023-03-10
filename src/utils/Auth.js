@@ -26,13 +26,13 @@ export const authorize = (password, email) => {
   }).then(getResponse);
 };
 
-export const getContent = (JWT) => {
+export const getContent = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `Bearer ${JWT}`,
+      Authorization: `Bearer ${token}`,
     },
   }).then(getResponse);
 };
