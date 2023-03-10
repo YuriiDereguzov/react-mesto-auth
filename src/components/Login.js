@@ -25,7 +25,6 @@ function Login({ handleLogin }) {
 
     handleLogin(userData)
       .then(() => {
-        // console.log(userData)
         setUserData({ email: "", password: "" });
         setMessage("");
       })
@@ -38,7 +37,6 @@ function Login({ handleLogin }) {
     <form
       onSubmit={handleSubmit}
       name="registration"
-      // className="popup__form popup__form_delete_card"
       className="registration"
     >
       <h2 className="registration__title">Вход</h2>
@@ -47,7 +45,6 @@ function Login({ handleLogin }) {
         type="email"
         id="email"
         name="email"
-        // className="popup__input popup__input_type_name"
         className="registration__input"
         required
         placeholder="email"
@@ -57,7 +54,6 @@ function Login({ handleLogin }) {
         type="password"
         id="password"
         name="password"
-        // className="popup__input popup__input_type_name"
         className="registration__input"
         required
         placeholder="Password"
@@ -65,7 +61,6 @@ function Login({ handleLogin }) {
       <span className="name-user-error popup__input-error">{message}</span>
       <button
         type="submit"
-        // className="button popup__button-save"
         className="registration__button-save registration__login-btn"
         aria-label="Вход"
       >

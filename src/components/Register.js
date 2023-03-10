@@ -30,19 +30,13 @@ function Register({ handleRegister }) {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      name="registration"
-      // className="popup__form popup__form_delete_card"
-      className="registration"
-    >
+    <form onSubmit={handleSubmit} name="registration" className="registration">
       <h2 className="registration__title">Регистрация</h2>
       <input
         onChange={handleChange}
         type="email"
         id="email"
         name="email"
-        // className="popup__input popup__input_type_name"
         className="registration__input"
         required
         placeholder="email"
@@ -52,7 +46,6 @@ function Register({ handleRegister }) {
         type="password"
         id="password"
         name="password"
-        // className="popup__input popup__input_type_name"
         className="registration__input"
         required
         placeholder="Password"
@@ -60,14 +53,16 @@ function Register({ handleRegister }) {
       <span className="name-user-error popup__input-error">{message}</span>
       <button
         type="submit"
-        // className="button popup__button-save"
         className="registration__button-save"
         aria-label="Регистрация"
       >
         Зарегистрироваться
       </button>
       <p className="registration__button">
-        Уже зарегестрированны? <Link to="/sign-in" className="registration__login-link">Войти</Link>
+        Уже зарегестрированны?{" "}
+        <Link to="/sign-in" className="registration__login-link">
+          Войти
+        </Link>
       </p>
     </form>
   );
