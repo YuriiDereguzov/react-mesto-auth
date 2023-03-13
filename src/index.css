@@ -46,6 +46,10 @@
 @import url(./blocks/popup/__card-name/popup__card-name.css);
 @import url(./blocks/popup/__big-image/popup__big-image.css);
 @import url(./blocks/popup/__input-error/popup__input-error.css);
+/*new*/
+@import url(./blocks/popup/__tooltip-text/popup__tooltip-text.css);
+@import url(./blocks/popup/__tooltip-image/popup__tooltip-image.css);
+/*new end*/
 
 /*Структура для модификаторов*/
 @import url(./blocks/popup/_opened/popup_opened.css);

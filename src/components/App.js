@@ -13,15 +13,16 @@ import Login from "./Login";
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import * as Auth from "../utils/Auth";
+import InfoTooltip from "./InfoTooltip";
+import Union from "../images/Union.svg";
+import Union2 from "../images/Union2.svg";
 
 function App() {
   const navigate = useNavigate();
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState({
     name: "",
     link: "",
@@ -30,6 +31,9 @@ function App() {
   const [cards, setCards] = React.useState([]);
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [data, setData] = React.useState("");
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
+  const [tooltipStatus, setTooltipStatus] = React.useState("");
+
 
   React.useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
@@ -42,25 +46,31 @@ function App() {
       });
 
     // проверяем наличие токена при загрузке сайта
-    tokenCheck();
-  }, []);
-
-  function tokenCheck() {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       Auth.getContent(jwt).then((res) => {
-        console.log(res);
         setLoggedIn(true);
         setData(res.data.email);
         navigate("/");
       });
     }
+  }, [navigate]);
+
+  function handleTooltipClose() {
+    tooltipStatus === "success" ? setIsInfoToolTipOpen(false) || navigate("/sign-in") : setIsInfoToolTipOpen(false)
   }
 
+  // const history = useHistory();
   function handleRegister({ password, email }) {
     return Auth.register(password, email).then(() => {
-      navigate("/sign-in");
-    });
+      setIsInfoToolTipOpen(true);
+      setTooltipStatus("success");
+      // history.push("/sign-in");
+      // navigate("/sign-in");
+    })
+    .catch(() => {
+      setIsInfoToolTipOpen(true);
+    })
   }
 
   function handleLogin({ password, email }) {
@@ -71,7 +81,7 @@ function App() {
         setData(email);
         navigate("/");
       }
-    });
+    })
   }
 
   function closeAllPopups() {
@@ -212,6 +222,7 @@ function App() {
             <>
               <Header link="/sign-in" buttonText="Войти" />
               <Register handleRegister={handleRegister} />
+              <InfoTooltip isOpen={isInfoToolTipOpen} onClose={handleTooltipClose} image={tooltipStatus === "success" ? Union : Union2} titleText={tooltipStatus === "success" ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз."}/>
             </>
           }
         />
