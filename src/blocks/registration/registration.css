@@ -1,4 +1,5 @@
 .registration {
+    min-height: 100vh;
     width: 358px;
     text-align: center;
     margin: auto;
