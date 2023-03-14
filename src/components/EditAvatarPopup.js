@@ -1,14 +1,14 @@
-import React from "react";
+import {React, useEffect, useContext, useRef} from "react";
 import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function EditAvatarPopup(props) {
   // записываем объект, возвращаемый хуком, в переменную
-  const avatarRef = React.useRef();
+  const avatarRef = useRef();
   // Подписка на контекст
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     avatarRef.current.value = "";
   }, [currentUser]);
 

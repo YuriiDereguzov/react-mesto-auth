@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useEffect, useState} from "react";
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import Footer from "./Footer";
 import Header from "./Header";
@@ -20,22 +20,22 @@ import Union2 from "../images/Union2.svg";
 function App() {
   const navigate = useNavigate();
 
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({
     name: "",
     link: "",
   });
-  const [currentUser, setCurrentUser] = React.useState("");
-  const [cards, setCards] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [data, setData] = React.useState("");
-  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = React.useState(false);
-  const [tooltipStatus, setTooltipStatus] = React.useState("");
+  const [currentUser, setCurrentUser] = useState("");
+  const [cards, setCards] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [data, setData] = useState("");
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+  const [tooltipStatus, setTooltipStatus] = useState("");
 
 
-  React.useEffect(() => {
+  useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
       .then(([userData, cardList]) => {
         setCurrentUser(userData);

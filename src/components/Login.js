@@ -1,11 +1,11 @@
-import React from "react";
+import {React, useState} from "react";
 
 function Login({ handleLogin }) {
-  const [userData, setUserData] = React.useState({
+  const [userData, setUserData] = useState({
     password: "",
     email: "",
   });
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   function handleChange(e) {
     const { name, value } = e.target;

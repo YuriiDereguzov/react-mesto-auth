@@ -1,13 +1,13 @@
-import React from "react";
+import {React, useEffect, useState} from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
   // Стейты, в которых содержится значение инпутов
-  const [name, setName] = React.useState("");
-  const [link, setLink] = React.useState("");
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("");
   // После загрузки текущих данных из API
   // данные будут стерты в управляемых компонентах.
-  React.useEffect(() => {
+  useEffect(() => {
     setName("");
     setLink("");
   }, [props.onAddPlace]);
