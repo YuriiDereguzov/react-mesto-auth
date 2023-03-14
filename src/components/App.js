@@ -1,5 +1,5 @@
-import {React, useEffect, useState} from "react";
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { React, useEffect, useState } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import ImagePopup from "./ImagePopup";
@@ -32,21 +32,23 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
-  const [tooltipStatusText, setTooltipStatusText] = useState("Что-то пошло не так! Попробуйте ещё раз.");
+  const [tooltipStatusText, setTooltipStatusText] = useState(
+    "Что-то пошло не так! Попробуйте ещё раз."
+  );
 
   useEffect(() => {
-    Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([userData, cardList]) => {
-        setCurrentUser(userData);
-        setCards(cardList);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`); // выведем ошибку в консоль
-      });
-
     // проверяем наличие токена при загрузке сайта
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
+      Promise.all([api.getProfile(), api.getInitialCards()])
+        .then(([userData, cardList]) => {
+          setCurrentUser(userData);
+          setCards(cardList);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`); // выведем ошибку в консоль
+        });
+
       Auth.getContent(jwt).then((res) => {
         setLoggedIn(true);
         setUserEmail(res.data.email);
@@ -56,20 +58,22 @@ function App() {
   }, [navigate]);
 
   function handleTooltipClose() {
-    tooltipStatusText === "Вы успешно зарегистрировались!" ? setIsInfoToolTipOpen(false) || navigate("/sign-in") : setIsInfoToolTipOpen(false)
+    tooltipStatusText === "Вы успешно зарегистрировались!"
+      ? setIsInfoToolTipOpen(false) || navigate("/sign-in")
+      : setIsInfoToolTipOpen(false);
   }
 
-  // const history = useHistory();
   function handleRegister({ password, email }) {
-    return Auth.register(password, email).then(() => {
-      setIsInfoToolTipOpen(true);
-      setTooltipStatusText("Вы успешно зарегистрировались!");
-      // history.push("/sign-in");
-      // navigate("/sign-in");
-    })
-    .catch(() => {
-      setIsInfoToolTipOpen(true);
-    })
+    return Auth.register(password, email)
+      .then(() => {
+        setIsInfoToolTipOpen(true);
+        setTooltipStatusText("Вы успешно зарегистрировались!");
+        // history.push("/sign-in");
+        // navigate("/sign-in");
+      })
+      .catch(() => {
+        setIsInfoToolTipOpen(true);
+      });
   }
 
   function handleLogin({ password, email }) {
@@ -216,7 +220,12 @@ function App() {
             <>
               <Header link="/sign-up" buttonText="Регистрация" />
               <Login handleLogin={handleLogin} />
-              <InfoTooltip isOpen={isInfoToolTipOpen} onClose={handleTooltipClose} image={Union2} titleText={"Что-то пошло не так! Попробуйте ещё раз."}/>
+              <InfoTooltip
+                isOpen={isInfoToolTipOpen}
+                onClose={handleTooltipClose}
+                image={Union2}
+                titleText={"Что-то пошло не так! Попробуйте ещё раз."}
+              />
             </>
           }
         />
@@ -226,7 +235,16 @@ function App() {
             <>
               <Header link="/sign-in" buttonText="Войти" />
               <Register handleRegister={handleRegister} />
-              <InfoTooltip isOpen={isInfoToolTipOpen} onClose={handleTooltipClose} image={tooltipStatusText === "Вы успешно зарегистрировались!" ? Union : Union2} titleText={tooltipStatusText}/>
+              <InfoTooltip
+                isOpen={isInfoToolTipOpen}
+                onClose={handleTooltipClose}
+                image={
+                  tooltipStatusText === "Вы успешно зарегистрировались!"
+                    ? Union
+                    : Union2
+                }
+                titleText={tooltipStatusText}
+              />
             </>
           }
         />
