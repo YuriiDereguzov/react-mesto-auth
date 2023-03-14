@@ -30,10 +30,9 @@ function App() {
   const [currentUser, setCurrentUser] = useState("");
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [data, setData] = useState("");
+  const [userEmail, setUserEmail] = useState("");
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
-  const [tooltipStatus, setTooltipStatus] = useState("");
-
+  const [tooltipStatusText, setTooltipStatusText] = useState("Что-то пошло не так! Попробуйте ещё раз.");
 
   useEffect(() => {
     Promise.all([api.getProfile(), api.getInitialCards()])
@@ -50,21 +49,21 @@ function App() {
     if (jwt) {
       Auth.getContent(jwt).then((res) => {
         setLoggedIn(true);
-        setData(res.data.email);
+        setUserEmail(res.data.email);
         navigate("/");
       });
     }
   }, [navigate]);
 
   function handleTooltipClose() {
-    tooltipStatus === "success" ? setIsInfoToolTipOpen(false) || navigate("/sign-in") : setIsInfoToolTipOpen(false)
+    tooltipStatusText === "Вы успешно зарегистрировались!" ? setIsInfoToolTipOpen(false) || navigate("/sign-in") : setIsInfoToolTipOpen(false)
   }
 
   // const history = useHistory();
   function handleRegister({ password, email }) {
     return Auth.register(password, email).then(() => {
       setIsInfoToolTipOpen(true);
-      setTooltipStatus("success");
+      setTooltipStatusText("Вы успешно зарегистрировались!");
       // history.push("/sign-in");
       // navigate("/sign-in");
     })
@@ -74,14 +73,18 @@ function App() {
   }
 
   function handleLogin({ password, email }) {
-    return Auth.authorize(password, email).then((data) => {
-      if (data.token) {
-        localStorage.setItem("jwt", data.token);
-        setLoggedIn(true);
-        setData(email);
-        navigate("/");
-      }
-    })
+    return Auth.authorize(password, email)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem("jwt", data.token);
+          setLoggedIn(true);
+          setUserEmail(email);
+          navigate("/");
+        }
+      })
+      .catch(() => {
+        setIsInfoToolTipOpen(true);
+      });
   }
 
   function closeAllPopups() {
@@ -174,7 +177,7 @@ function App() {
           element={
             <>
               <CurrentUserContext.Provider value={currentUser}>
-                <Header link="/sign-in" email={data} buttonText="Выйти" />
+                <Header link="/sign-in" email={userEmail} buttonText="Выйти" />
                 <ProtectedRoute
                   loggedIn={loggedIn}
                   component={Main}
@@ -213,6 +216,7 @@ function App() {
             <>
               <Header link="/sign-up" buttonText="Регистрация" />
               <Login handleLogin={handleLogin} />
+              <InfoTooltip isOpen={isInfoToolTipOpen} onClose={handleTooltipClose} image={Union2} titleText={"Что-то пошло не так! Попробуйте ещё раз."}/>
             </>
           }
         />
@@ -222,7 +226,7 @@ function App() {
             <>
               <Header link="/sign-in" buttonText="Войти" />
               <Register handleRegister={handleRegister} />
-              <InfoTooltip isOpen={isInfoToolTipOpen} onClose={handleTooltipClose} image={tooltipStatus === "success" ? Union : Union2} titleText={tooltipStatus === "success" ? "Вы успешно зарегистрировались!" : "Что-то пошло не так! Попробуйте ещё раз."}/>
+              <InfoTooltip isOpen={isInfoToolTipOpen} onClose={handleTooltipClose} image={tooltipStatusText === "Вы успешно зарегистрировались!" ? Union : Union2} titleText={tooltipStatusText}/>
             </>
           }
         />
