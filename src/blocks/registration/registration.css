@@ -1,6 +1,12 @@
 .registration {
     min-height: 100vh;
-    width: 358px;
+    max-width: 358px;
     text-align: center;
     margin: auto;
+}
+
+@media screen and (max-width: 450px) {
+    .registration {
+        width: 85%;
+    }
 }
