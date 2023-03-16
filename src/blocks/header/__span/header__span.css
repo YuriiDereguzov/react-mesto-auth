@@ -1,0 +1,7 @@
+@media screen and (max-width: 450px) {
+    .header__span {
+        width: 24px;
+        height: 3px;
+        background-color: #FFFFFF;
+    }
+}

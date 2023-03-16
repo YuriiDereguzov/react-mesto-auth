@@ -2,7 +2,8 @@
     max-width: 880px;
     min-height: 74px;
     margin: auto;
-    padding: 45px 0 0;
+    /* padding: 45px 0 0; */
+    padding: 19px 0 0;
     border-bottom: 1px solid rgba(84, 84, 84, .7);
     /* display: grid;
     grid-template-columns: 1fr auto; */
@@ -12,8 +13,11 @@
 
 @media screen and (max-width: 450px) {
     .header {
-        padding: 28px 0 0;
+        /* padding: 28px 0 0; */
+        padding: 0;
         max-width: 320px;
         min-height: 56px;
+        display: flex;
+        flex-direction: column-reverse;
     }
 }

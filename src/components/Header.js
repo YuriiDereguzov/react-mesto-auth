@@ -9,7 +9,14 @@ function Header(props) {
 
   return (
     <header className="header">
-      <img className="header__logo" src={logo} alt="Место Россия" />
+      <div className="header__components">
+        <img className="header__logo" src={logo} alt="Место Россия" />
+        <button className="header__menu-btn">
+          <span className="header__span"></span>
+          <span className="header__span"></span>
+          <span className="header__span"></span>
+        </button>
+      </div>
       <div className="header__loged">
         <p className="heder__email">{props.email}</p>
         <button onClick={signOut} className="header__button">

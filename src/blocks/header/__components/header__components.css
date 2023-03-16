@@ -1,0 +1,14 @@
+.header__components {
+    display: flex;
+}
+
+@media screen and (max-width: 450px) {
+    .header__components {
+        /* display: grid;
+        grid-template-columns: 1fr auto; */
+        display: flex;
+        justify-content: inherit;
+        margin: 0 30px;
+        padding: 27px 0;
+    }
+}

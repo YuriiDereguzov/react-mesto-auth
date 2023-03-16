@@ -5,3 +5,19 @@
     grid-column-gap: 24px;
     align-items: center;
 }
+
+@media screen and (max-width: 450px) {
+    .header__loged {
+        border-bottom: 1px solid rgba(84, 84, 84, .7);
+        text-align: center;
+        grid-template-columns: none;
+        grid-row-gap: 18px;
+        padding: 40px 0;
+        transition: visibility 0.5s, opacity 0.5s, linear;
+        display: none;
+    }
+
+    .header__loged.header__loged_opened {
+        display: grid;
+    }
+}

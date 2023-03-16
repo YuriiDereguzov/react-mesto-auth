@@ -37,9 +37,7 @@ function App() {
   );
 
   useEffect(() => {
-    // проверяем наличие токена при загрузке сайта
-    const jwt = localStorage.getItem("jwt");
-    if (jwt) {
+    if (loggedIn) {
       Promise.all([api.getProfile(), api.getInitialCards()])
         .then(([userData, cardList]) => {
           setCurrentUser(userData);
@@ -48,7 +46,13 @@ function App() {
         .catch((err) => {
           console.log(`Ошибка: ${err}`); // выведем ошибку в консоль
         });
+    }
+  }, [loggedIn]);
 
+  useEffect(() => {
+    // проверяем наличие токена при загрузке сайта
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
       Auth.getContent(jwt).then((res) => {
         setLoggedIn(true);
         setUserEmail(res.data.email);
