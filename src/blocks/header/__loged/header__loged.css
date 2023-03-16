@@ -6,7 +6,7 @@
     align-items: center;
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 400px) {
     .header__loged {
         border-bottom: 1px solid rgba(84, 84, 84, .7);
         text-align: center;

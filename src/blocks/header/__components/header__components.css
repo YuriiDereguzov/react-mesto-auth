@@ -8,7 +8,7 @@
         grid-template-columns: 1fr auto; */
         display: flex;
         justify-content: inherit;
-        margin: 0 30px;
+        margin: 0 10px;
         padding: 27px 0;
     }
 }
