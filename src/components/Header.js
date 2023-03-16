@@ -1,14 +1,14 @@
 import { React, useState } from "react";
 import logo from "../images/Vector-logo.svg";
 import { Link } from "react-router-dom";
-import CloseIcon from "../images/CloseIcon.svg"
+import CloseIcon from "../images/CloseIcon.svg";
 
 function Header(props) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   function handleClick() {
     setIsMenuOpen(!isMenuOpen);
   }
-  
+
   function signOut() {
     localStorage.removeItem("jwt");
   }
@@ -28,13 +28,7 @@ function Header(props) {
             </>
           )}
         </button>
-        {/* <button onClick={handleClick} className="header__menu-btn" style={{ backgroundImage: `url(${CloseIcon})` }}>
-          <span className="header__span"></span>
-          <span className="header__span"></span>
-          <span className="header__span"></span>
-        </button> */}
       </div>
-      {/* <div className="header__loged"> */}
       <div
         className={`header__loged ${isMenuOpen ? "header__loged_opened" : ""}`}
       >
