@@ -2,3 +2,7 @@
     text-decoration: none;
     color:#fff;
 }
+
+.registration__login-link:hover {
+    opacity: 60%;
+}

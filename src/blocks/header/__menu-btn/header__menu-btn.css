@@ -11,4 +11,8 @@
         display: grid;
         gap: 6px;
     }
+    .header__menu-btn:hover {
+        opacity: 60%;
+        cursor: pointer;
+    }
 }

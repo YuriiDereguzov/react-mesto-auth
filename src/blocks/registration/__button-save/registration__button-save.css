@@ -11,6 +11,10 @@
     padding: 0;
 }
 
+.registration__button-save:hover {
+    opacity: 85%;
+}
+
 @media screen and (max-width: 450px) {
     .registration__button-save {
         margin-top: 140px;

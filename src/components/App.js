@@ -14,8 +14,6 @@ import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import * as Auth from "../utils/Auth";
 import InfoTooltip from "./InfoTooltip";
-import Union from "../images/Union.svg";
-import Union2 from "../images/Union2.svg";
 
 function App() {
   const navigate = useNavigate();
@@ -50,7 +48,7 @@ function App() {
   }, [loggedIn]);
 
   useEffect(() => {
-    // проверяем наличие токена при загрузке сайта
+    // проверяем наличие токена
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       Auth.getContent(jwt).then((res) => {
@@ -63,7 +61,9 @@ function App() {
 
   function handleTooltipClose() {
     tooltipStatusText === "Вы успешно зарегистрировались!"
-      ? setIsInfoToolTipOpen(false) || navigate("/sign-in")
+      ? navigate("/sign-in") ||
+        setIsInfoToolTipOpen(false) ||
+        setTooltipStatusText("Что-то пошло не так! Попробуйте ещё раз.")
       : setIsInfoToolTipOpen(false);
   }
 
@@ -72,8 +72,6 @@ function App() {
       .then(() => {
         setIsInfoToolTipOpen(true);
         setTooltipStatusText("Вы успешно зарегистрировались!");
-        // history.push("/sign-in");
-        // navigate("/sign-in");
       })
       .catch(() => {
         setIsInfoToolTipOpen(true);
@@ -224,12 +222,6 @@ function App() {
             <>
               <Header link="/sign-up" buttonText="Регистрация" />
               <Login handleLogin={handleLogin} />
-              <InfoTooltip
-                isOpen={isInfoToolTipOpen}
-                onClose={handleTooltipClose}
-                image={Union2}
-                titleText={"Что-то пошло не так! Попробуйте ещё раз."}
-              />
             </>
           }
         />
@@ -239,16 +231,6 @@ function App() {
             <>
               <Header link="/sign-in" buttonText="Войти" />
               <Register handleRegister={handleRegister} />
-              <InfoTooltip
-                isOpen={isInfoToolTipOpen}
-                onClose={handleTooltipClose}
-                image={
-                  tooltipStatusText === "Вы успешно зарегистрировались!"
-                    ? Union
-                    : Union2
-                }
-                titleText={tooltipStatusText}
-              />
             </>
           }
         />
@@ -257,6 +239,12 @@ function App() {
           element={loggedIn ? <Navigate to="/" /> : <Navigate to="/sign-in" />}
         />
       </Routes>
+      <InfoTooltip
+        isOpen={isInfoToolTipOpen}
+        onClose={handleTooltipClose}
+        isSuccess={tooltipStatusText === "Вы успешно зарегистрировались!"}
+        titleText={tooltipStatusText}
+      />
     </div>
   );
 }
