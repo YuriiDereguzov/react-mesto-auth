@@ -1,14 +1,50 @@
-# react-mesto-auth проектная работа Яндекс.Практимума
+# react-mesto-auth
+
 Проект на Реакте с авторизацией и регистрацией
 # Введение
-Используются предыдущие наработки по проекту Mesto.
-Продолжение предыдущего проекта mesto-react.
 
-Здесь Deploy проекта mesto-react - https://yuriidereguzov.github.io/mesto-react
+Используются предыдущие наработки по проекту Mesto([Ссылка на GitHub](https://github.com/YuriiDereguzov/mesto "Ссылка на GitHub")).
+Продолжение предыдущего проекта [mesto-react](https://github.com/YuriiDereguzov/mesto "Ссылка на GitHub").
 # О проекте
-Социальная сеть MESTO: интерактивная страница с возможностью добавления, а так же и удаления карточек. Имеется возможность редактированния профиля, просмотра карточек в увеличеном виде, их оценивание (можно ставить и убирать лайки).
+
+Сервис Mesto: проектная работа с изображениями красивых мест страны.
+
+Это интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки.
+
+В проекте имеется возможность редактированния профиля и просмотра карточек в увеличеном виде.
+
 # Доработка проекта
 Добавление регистрации и авторизации
+
+## Ссылки на проект:
+
+[GitHub] — https://github.com/YuriiDereguzov/react-mesto-auth
+
+[Deploy] — [Mesto-auth](https://yuriidereguzov.github.io/react-mesto-auth "Ссылка на сайт")
+
+## Технологии, инструменты и стек:
+
+<ul>
+  <li>Flexbox</li>
+  <li>Grid</li>
+  <li>Адаптивная вёрстка</li>
+  <li>БЭМ</li>
+  <li>Javascript
+    <ul>
+      <li>Редактирование элементов</li>
+      <li>Добавление/удаление элементов</li>
+      <li>Валидация</li>
+      <li>Promise</li>
+    </ul>
+  </li>
+  <li>Объектно-ориентированное программирование (ООП)</li>
+  <li>React</li>
+  <li>Webpack</li>
+  <li>API</li>
+  <li>Регистрация и авторизация</li>
+</ul>
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
