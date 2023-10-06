@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/react-mesto-auth/static/css/main.f27e6b9a.css",
-    "main.js": "/react-mesto-auth/static/js/main.2b64420f.js",
+    "main.css": "/react-mesto-auth/static/css/main.9665a92d.css",
+    "main.js": "/react-mesto-auth/static/js/main.1bbe92fe.js",
     "static/js/787.2df4b1c8.chunk.js": "/react-mesto-auth/static/js/787.2df4b1c8.chunk.js",
     "static/media/Inter-Medium.woff": "/react-mesto-auth/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff": "/react-mesto-auth/static/media/Inter-Black.c6938660eec019fefd68.woff",
@@ -17,14 +17,14 @@
     "static/media/Union.svg": "/react-mesto-auth/static/media/Union.1b6082f862eac35e2514460237d96ecc.svg",
     "static/media/cardlike2.svg": "/react-mesto-auth/static/media/cardlike2.35948469632d0421d697.svg",
     "static/media/Vector-editButton.svg": "/react-mesto-auth/static/media/Vector-editButton.6c7bf05444b9793fdf6e.svg",
-    "static/media/CloseIcon.svg": "/react-mesto-auth/static/media/CloseIcon.039f1f5203f653b4bacd.svg",
+    "static/media/CloseIcon.svg": "/react-mesto-auth/static/media/CloseIcon.039f1f5203f653b4bacde5e34ee2810b.svg",
     "static/media/Vector-addButton.svg": "/react-mesto-auth/static/media/Vector-addButton.bed8c136e13907f5eefb.svg",
-    "main.f27e6b9a.css.map": "/react-mesto-auth/static/css/main.f27e6b9a.css.map",
-    "main.2b64420f.js.map": "/react-mesto-auth/static/js/main.2b64420f.js.map",
+    "main.9665a92d.css.map": "/react-mesto-auth/static/css/main.9665a92d.css.map",
+    "main.1bbe92fe.js.map": "/react-mesto-auth/static/js/main.1bbe92fe.js.map",
     "787.2df4b1c8.chunk.js.map": "/react-mesto-auth/static/js/787.2df4b1c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f27e6b9a.css",
-    "static/js/main.2b64420f.js"
+    "static/css/main.9665a92d.css",
+    "static/js/main.1bbe92fe.js"
   ]
 }
