@@ -3,8 +3,8 @@
 Проект на Реакте с авторизацией и регистрацией
 # Введение
 
-Используются предыдущие наработки по проекту Mesto([Ссылка на GitHub](https://github.com/YuriiDereguzov/mesto "Ссылка на GitHub")).
-Продолжение предыдущего проекта [mesto-react](https://github.com/YuriiDereguzov/mesto "Ссылка на GitHub").
+Используются предыдущие наработки по проекту [Mesto](https://github.com/YuriiDereguzov/mesto "Ссылка на GitHub").
+Продолжение предыдущего проекта [Mesto-react](https://github.com/YuriiDereguzov/mesto-react "Ссылка на GitHub").
 # О проекте
 
 Сервис Mesto: проектная работа с изображениями красивых мест страны.
